@@ -1,0 +1,102 @@
+#register, used to register people to a users.json
+    if header == f'{summon}register':
+        await channel.send(f'registering: {theMessage[1]}')
+        registerYN = True
+        with open("users.json", "r") as usercheck:
+            userList = json.load(usercheck)
+            for user in userList:
+                print(user)
+                if str(message.author) == str(user["discord username"]):
+                    await channel.send("you're already registered 5head :5head:")
+                    registerYN = False
+        if registerYN == True:
+            if len(theMessage)-1 != 8:
+                await channel.send(f'insufficient amount of teachers to register {theMessage[1]}')
+            else:
+                addUser = {
+                    "registered name": str(theMessage[1]),
+                    "discord username": str(message.author),
+                }
+                usersTeacherListTemp = []
+                for teacher in theMessage[2:]:
+                    usersTeacherListTemp.append(str(teacher))
+                addUser["teachers"] = usersTeacherListTemp
+                with open('users.json', 'r+') as users_file: #reference https://stackoverflow.com/questions/6648493/how-to-open-a-file-for-both-reading-and-writing
+                    userFileDict = json.load(users_file)
+                    userFileDict.append(addUser)
+                    users_file.seek(0)                      #reference https://stackoverflow.com/questions/13949637/how-to-update-json-file-with-python
+                    json.dump(userFileDict, users_file)
+                    users_file.truncate()
+                print(userFileDict)
+                print(addUser)
+                
+                await channel.send("Successfully registered, use h!viewme to see your homework")
+
+
+#viewme V1.0, used to check people against a list of names and then cross the teachers with others. Now we have roles, so who gives a fk
+    if header == f'{summon}viewme':
+
+        with open('users.json', 'r') as users_file:
+            userFileDict = json.load(users_file)
+        
+
+        registeredNames = []
+        for eachUser in userFileDict:
+            registeredNames.append(eachUser["discord id"])
+
+        if str(message.author.id) not in registeredNames:
+            await channel.send("You must first register to use this command, use h!help for list of commands")
+        if str(message.author.id) in registeredNames:
+            output = f'```Showing homework for {CBU.formatname(str(message.author))}\n'
+            
+            usersTeacherListTemp = []
+            usersHWListTemp = []
+
+            with open('teachers.json', 'r') as teachers_homework:
+                teachersHomeworkDict = json.load(teachers_homework)
+
+    
+            for user in userFileDict:
+                if str(user["discord id"]) == str(message.author.id):
+                    for eachTeacher in user["teachers"]:
+                        usersTeacherListTemp.append(eachTeacher)
+            tempHWString = ""
+            for eachTeacher in usersTeacherListTemp:
+                print(usersTeacherListTemp)
+                for eachTeacherHW in teachersHomeworkDict:
+                    if eachTeacher.lower() == eachTeacherHW["name"].lower():
+                        tempHWString += f'\n{CBU.formatname(str(eachTeacherHW["name"]))}'
+                        for eachHomework in eachTeacherHW["homework"]:
+                            if len(eachTeacherHW["homework"]) == 0:
+                                break
+                            else:
+                                tempHWString += f'\n\t{CBU.formatname(eachHomework["description"])} due {eachHomework["duedate"]}'
+                                usersHWListTemp.append(tempHWString)
+                                print(tempHWString)
+                                print("ok next")
+                        
+
+
+
+            output += tempHWString
+            output += "```"
+            users_file.close()
+            teachers_homework.close()
+            await channel.send(output)
+
+#used in the add function when i didn't have a complete list of teachers
+addTeacher = {}
+        addTeacher["name"] = (tempTeacher)
+        addTeacher["homework"] = [
+            {
+                "description": (hwDescription),
+                "duedate": dueDate
+            }
+        ]
+        teachersLista.append(addTeacher)
+        with open('teachers.json', 'w') as teachersList:
+            teachersList.seek(0)
+            json.dump(teachersLista, teachersList, indent = 4)
+            teachersList.truncate()
+        await channel.send("it has been added")
+    break

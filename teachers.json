@@ -1,0 +1,148 @@
+[
+    {
+        "name": "yanez",
+        "homework": [
+            {
+                "description": "something stupid",
+                "duedate": "3/39"
+            },
+            {
+                "description": "something stupid again",
+                "duedate": "3/40"
+            }
+        ]
+    },
+    {
+        "name": "calvert",
+        "homework": [
+            {
+                "description": "Author's-Note",
+                "duedate": "3/30"
+            },
+            {
+                "description": "Guided-Discussion",
+                "duedate": "4/3"
+            },
+            {
+                "description": "Byronic-Hero/Superfluous-Men",
+                "duedate": "4/6"
+            },
+            {
+                "description": "Finish-Hero",
+                "duedate": "4/6"
+            }
+        ]
+    },
+    {
+        "name": "alvarez",
+        "homework": []
+    },
+    {
+        "name": "ramos",
+        "homework": []
+    },
+    {
+        "name": "villagomez",
+        "homework": []
+    },
+    {
+        "name": "gatewood",
+        "homework": []
+    },
+    {
+        "name": "hickman",
+        "homework": []
+    },
+    {
+        "name": "kickham",
+        "homework": []
+    },
+    {
+        "name": "lockett",
+        "homework": []
+    },
+    {
+        "name": "thompson",
+        "homework": []
+    },
+    {
+        "name": "ton",
+        "homework": [
+            {
+                "description": "OPTIONAL \u2014 pivot interactive torque assignment due",
+                "duedate": "3/30"
+            }
+        ]
+    },
+    {
+        "name": "bennett",
+        "homework": []
+    },
+    {
+        "name": "evans",
+        "homework": []
+    },
+    {
+        "name": "hope",
+        "homework": []
+    },
+    {
+        "name": "becker",
+        "homework": [
+            {
+                "description": "knowledge moment",
+                "duedate": "3/30"
+            }
+        ]
+    },
+    {
+        "name": "cuffin",
+        "homework": []
+    },
+    {
+        "name": "daniels",
+        "homework": []
+    },
+    {
+        "name": "art/film/design",
+        "homework": []
+    },
+    {
+        "name": "business and management",
+        "homework": []
+    },
+    {
+        "name": "music",
+        "homework": []
+    },
+    {
+        "name": "french",
+        "homework": []
+    },
+    {
+        "name": "chinese",
+        "homework": [
+            {
+                "description": "Jiang: do the thing she linked on the onenote",
+                "duedate": "4/1"
+            }
+        ]
+    },
+    {
+        "name": "spanish",
+        "homework": []
+    },
+    {
+        "name": "oliveira",
+        "homework": [
+            {
+                "description": "chapter 28 notes",
+                "duedate": "3/30"
+            },
+            {
+                "description": "ch29 notes due",
+                "duedate": "4/6"
+            }
+        ]
+    }
+]
