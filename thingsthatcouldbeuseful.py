@@ -1,5 +1,6 @@
 import json
 import discord
+from datetime import datetime
 
 def formatname(name):
     print(f"format name has been called with {name}")
@@ -29,12 +30,13 @@ def makeEmbedMessage(user, userTeachers, homeworkDict):                         
         for eachDescription in readHere:
             if eachDescription["discord id"] == user.id:
                 descriptionThis = eachDescription["descriptor"]
-    embedThis = discord.Embed(title = user.nick, description = descriptionThis)
+    embedThis = discord.Embed(title=user.nick, description=f'> {descriptionThis}')
+    
     for eachHomework in homeworkDict:
         addValue = " "
         for eachIndivHW in eachHomework["homework"]:
-            addValue += f"\n{eachIndivHW['description']} due on {eachIndivHW['duedate']}"
-        embedThis.add_field(name = formatname(eachHomework["teacher"]), value = addValue, inline = False)
+            addValue += f"\n__'{eachIndivHW['title']}' due on **{eachIndivHW['duedate']}**__\n> Description: {eachIndivHW['description']} "
+        embedThis.add_field(name = f'-----------\n`{formatname(eachHomework["teacher"])}`', value = addValue, inline = False)
     embedThis.set_thumbnail(url = user.avatar_url)
     embedThis.set_footer(text = "developed with python", icon_url="https://i.imgur.com/trIK0QD.jpg")
     return(embedThis)
@@ -58,4 +60,29 @@ def addMember(userId, userRoles):
         usersListList = json.load(usersList)
         usersListList.append(addUser)
         usersList.seek(0)
-        json.dump(usersListList, usersList, indent = 4)
+        json.dump(usersListList, usersList, indent=4)
+        
+def deleteOld():
+    with open('teachers.json', 'r+') as teacherList:
+        teacherListDict = json.load(teacherList)
+        todayIs = datetime.today()
+        for teacher in teacherListDict:
+            updatedHomework = teacher["homework"].copy()
+            for homework in updatedHomework:
+                homeworkDueDate = homework["duedate"].split("/")
+                if int(todayIs.day) > int(homeworkDueDate[1]) and int(todayIs.month) > int(homeworkDueDate[0]):
+                    print(f'removing {homework}')
+                    updatedHomework.remove(homework)
+                elif int(todayIs.day) < int(homeworkDueDate[1]) and int(todayIs.month) > int(homeworkDueDate[0]):
+                    print(f'removing {homework}')
+                    updatedHomework.remove(homework)
+                elif int(todayIs.day) > int(homeworkDueDate[1]) and int(todayIs.month) > int(homeworkDueDate[0]):
+                    print(f'removing {homework}')
+                    updatedHomework.remove(homework)
+            teacher["homework"] = updatedHomework
+        teacherList.seek(0)
+        json.dump(teacherListDict, teacherList, indent=4)
+        teacherList.truncate()
+
+#{"title": "Covid chronicles", "description": "Check onenote content library > covid chronicles and follow instructions", "duedate": "4/6"}
+deleteOld()
