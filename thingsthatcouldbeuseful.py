@@ -30,13 +30,13 @@ def makeEmbedMessage(user, userTeachers, homeworkDict):                         
         for eachDescription in readHere:
             if eachDescription["discord id"] == user.id:
                 descriptionThis = eachDescription["descriptor"]
-    embedThis = discord.Embed(title=user.nick, description=f'> {descriptionThis}')
+    embedThis = discord.Embed(title=user.nick, description=f'{descriptionThis}')
     
     for eachHomework in homeworkDict:
         addValue = " "
         for eachIndivHW in eachHomework["homework"]:
             addValue += f"\n__'{eachIndivHW['title']}' due on **{eachIndivHW['duedate']}**__\n> Description: {eachIndivHW['description']} "
-        embedThis.add_field(name = f'-----------\n`{formatname(eachHomework["teacher"])}`', value = addValue, inline = False)
+        embedThis.add_field(name = f'`{formatname(eachHomework["teacher"])}`', value = addValue, inline = False)
     embedThis.set_thumbnail(url = user.avatar_url)
     embedThis.set_footer(text = "developed with python", icon_url="https://i.imgur.com/trIK0QD.jpg")
     return(embedThis)
@@ -83,6 +83,28 @@ def deleteOld():
         teacherList.seek(0)
         json.dump(teacherListDict, teacherList, indent=4)
         teacherList.truncate()
+
+def updatePuzzle(user, stage):
+    currentStage = stage
+    with open('puzzleRegistry.json', 'r+') as puzzle_Registry:
+        puzzleRegistryDict = json.load(puzzle_Registry)
+        alreadyRegistered = False
+        for users in puzzleRegistryDict:
+            if users["id"] == user:
+                alreadyRegistered = True
+                users[currentStage] = "complete"
+        if alreadyRegistered == False:
+            puzzleRegistryDict.append({
+                "id": user,
+                stage: "complete"
+            })
+        puzzle_Registry.seek(0)
+        json.dump(puzzleRegistryDict, puzzle_Registry, indent = 4)
+        puzzle_Registry.truncate()
+
+""" def log(logThis):
+    with open("log.txt", 'w') as log:
+        log. """
 
 #{"title": "Covid chronicles", "description": "Check onenote content library > covid chronicles and follow instructions", "duedate": "4/6"}
 deleteOld()

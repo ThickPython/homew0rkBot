@@ -62,7 +62,7 @@ async def on_message(message):
         embedHelp.add_field(name = "c!me", value = "View all your teachers including ongoing assignments (don't worry, we already know who your teachers are ;)\nUse `c!me` to summon")
         embedHelp.add_field(name = "c!add", value = "Adds homework and due date to a certain teacher\nUse `c!add teacher: {teacher} title: {title of assignment} description: {description of assignment} due: {due date}` \n(note: YES IT'S CASE SENSITIVE)", inline = False)
         embedHelp.add_field(name = "c!view", value = "Views current assignments and due dates for a certain teacher\nUse `c!view {teacher}` to summon", inline = False)
-        embedHelp.add_field(name = "c!descrip", value = "Updates your c!viewme description to whatever you want (even supports emojis!)\nUse `c!descrip {description}` to update", inline = False)
+        embedHelp.add_field(name = "c!description", value = "Updates your c!viewme description to whatever you want (even supports emojis!)\nUse `c!descrip {description}` to update", inline = False)
         embedHelp.add_field(name = "c!remove", value = "Removes an assignment from a certain teacher, remember to use c!view {teacher} so you can copy/paste the assignment name\nUse `c!remove {teacher} {exact assignment name}` to remove", inline = False)
         embedHelp.add_field(name="c!help2", value="For when you're bored") 
         embedHelp.set_footer(text = "developed with python, by colin the sleep waster, waster of all sleep", icon_url="https://i.imgur.com/trIK0QD.jpg")
@@ -74,7 +74,7 @@ async def on_message(message):
         embedHelp2.add_field(name = "`c!help`", value = "What do you think it does you mega 5head :5head:\nUse 'c!help' to summon", inline = False)
         embedHelp2.add_field(name = "`c!god`", value = "Praise be")
         embedHelp2.add_field(name = "`c!ppsize`", value = "They tell you all the time, if you want the results, you gotta measure it, but when you have Rainsta, why measure?\nUse `'c!ppsize {person}'` to get the size instantly", inline = False)
-        embedHelp2.add_field(name = "`c!_______`", value = "So you're bored huh? I can offer you some, 'exclusive' rewards for completing the hunt. More specifically, a role, which no-one, not even the admins will have. That is of course, assuming they don't complete the puzzle. happy hunting, `1st hint here will be added in future bot versions`", inline = False)
+        embedHelp2.add_field(name = "`c!_______`", value = "So you're bored huh? I can offer you some, 'exclusive' rewards for completing the hunt. More specifically, a role, which no-one, not even the admins will have. That is of course, assuming they don't complete the puzzle. happy hunting, `___saysgo`", inline = False)
         embedHelp2.set_footer(text = "developed with python, by colin the sleep waster, waster of all sleep", icon_url="https://i.imgur.com/trIK0QD.jpg")
         await channel.send(embed = embedHelp2)
 
@@ -126,7 +126,7 @@ async def on_message(message):
                             "duedate": sortThis[-1]
                         }
                     for teacher in teachersLista:
-                        if teacher["name"] == sortThis[indexTeacher+1]:
+                        if teacher["name"] == sortThis[indexTeacher+1].lower():
                             teachersLista[teachersLista.index(teacher)]["homework"].append(addHomework)
                             with open('teachers.json', 'w') as teachersList:
                                 teachersList.seek(0)
@@ -205,7 +205,7 @@ async def on_message(message):
             teachersLista.close()
     
     #customdescription
-    if header == f'{summon}descrip':
+    if header == f'{summon}description':
         descriptor = ' '.join(theMessage[1:])
         with open('customDescription.json', 'r+') as registeredNames:
             replaceWith = json.load(registeredNames)
@@ -306,7 +306,7 @@ async def on_message(message):
                 else:
                     settingsList["gnapToggle"] = "on"
                 settings_List.seek(0)
-                json.dump(settingsList, settings_List)
+                json.dump(settingsList, settings_List, indent=4)
                 settings_List.truncate()
                 await channel.send(f'_Gnap Translator has been set to `{settingsList["gnapToggle"]}`_')
 
@@ -317,17 +317,72 @@ async def on_message(message):
 #------------------------------------------------------
 #puzzle
 
-    """ if header == f'{summon}oliveirasaysgo':
-        await channel.send("Vo fvb aovbnoa aopz dvbsk il lhzf? pa'z uva, pa nlaz ohykly. Olyl'z fvby ulea opua: 'p'k sprl av zll aol thuhnly'")
+    if header == f'{summon}osaysgo':
+        CBU.updatePuzzle(str(message.author.id), "stage 1")
+        CBU.updatePuzzle(str(message.author.id), "completion")
+        await channel.send("rmurtncxbnncqnvjwjpna")
     if header == f'{summon}karenroper':
+        CBU.updatePuzzle(str(message.author.id), "stage 2")
         await channel.send("https://images2.imgbox.com/d1/73/1MmF73HB_o.jpg")
     if header == f'{summon}sendnudes':
+        CBU.updatePuzzle(str(message.author.id), "stage 3")
         print(message.channel.type)
         if isinstance(message.channel, discord.DMChannel):
-            await channel.send("ok well someone's dirty minded, looking at the side text and all. Fine, i'll give you what you want. It's the role right? Yeah I thought so. The command to get the role is c!-, wait, why am i even giving it to you this early. There's more. Of course there's more, you didn't think you were done yet **haH**. We aren't. Btw, when we're done you can be my bot's mascot.")
+            await channel.send("ok well someone's dirty mInded, looking at the side text and all. fiNe, i'll give you what you want. It's the role right? Yeah I thought so. The command to get the role is c!-, wait, why am i even giving it to you this early. There's more. Of coURse there's more, you didn't think you were done yeT **haH**. We aren't.")
         else:
-            await channel.send("bro i don't think, i don't think you're supposed to do that here...") """
-            
+            await channel.send("bro i don't think, i don't think you're supposed to do that here...")
+    if header == f'{summon}INIITOURTH':
+        CBU.updatePuzzle(str(message.author.id), "stage 4")
+        if isinstance(message.channel, discord.DMChannel):
+            await channel.send("cool, so, you did that. I'm not surprised that you're still going. Here's one more scrambled mess and you're done ok? The key is 'bruh' 'tzelzfoaifonik'")
+    if header == f'{summon}syt':
+        CBU.updatePuzzle(str(message.author.id), "stage 5")
+        if isinstance(message.channel, discord.DMChannel):
+            await channel.send("fine, FINE, YOU'RE DONE. That's what you want isn't it? Good job, you did it. Go get your reward. You earned it.")
+            await channel.send("just remember, you made it to the top, so you have the responsibility to not tell anyone the right commands ok? I'm watching, I know if you tell.")
+            await channel.send("just use c!claim")
+    if header == f'{summon}claim':
+        if isinstance(message.channel, discord.TextChannel):
+            with open('settings.json', 'r+') as settings_List:
+                settingsList = json.load(settings_List)
+                if settingsList["atTheTop"] < 3:
+                    
+                    with open('puzzleRegistry.json', 'r+') as puzzle_Registry:
+                        puzzleRegistryDict = json.load(puzzle_Registry)
+                        completion = False
+                        alreadycomplete = False
+                        for user in puzzleRegistryDict:
+                            if user["id"] == str(message.author.id) and len(user) == 7 and user["completition"] != "completed":
+                                completion = True
+                                user["completition"] = "completed"
+                                settingsList["atTheTop"] += 1
+
+                            if user["completion"] == "completed":
+                                alreadycomplete = True
+                        if alreadycomplete == True:
+                            await channel.send(f'you already got your reward ok')
+                        elif completion == False:
+                            await channel.send("you think you can just c!claim and be done with? no man, you have to do the other commands first u mega 5head")
+                        elif completion == True:
+                            await channel.send(f'{message.author.name} has reached the top and claimed the role of "Cipher Master" everyone give them a big round of applause or something')
+                            guild = message.guild
+                            await guild.create_role(name="Cipher Master", color=discord.Colour(0xFFDF00))
+                            user = message.author
+                            role = discord.utils.get(user.guild.roles, name="Cipher Master")
+                            await user.add_roles(role)
+                            print(message.author.name)
+                        puzzle_Registry.seek(0)
+                        json.dump(puzzleRegistryDict, puzzle_Registry, indent=4)
+                        puzzle_Registry.truncate()
+                else:
+                    await channel.send("the hunt has ended, sorry mate but the first 3 have already reached the end :/")
+                settings_List.seek(0)
+                json.dump(settingsList, settings_List, indent=4)
+                settings_List.truncate()
+
+    if header == f'{summon}channelid':
+        await channel.send(str(message.channel.id))
+
 #------------------------------------------------------
 
 
