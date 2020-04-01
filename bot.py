@@ -74,6 +74,7 @@ async def on_message(message):
         embedHelp2.add_field(name = "`c!help`", value = "What do you think it does you mega 5head :5head:\nUse 'c!help' to summon", inline = False)
         embedHelp2.add_field(name = "`c!god`", value = "Praise be")
         embedHelp2.add_field(name = "`c!ppsize`", value = "They tell you all the time, if you want the results, you gotta measure it, but when you have Rainsta, why measure?\nUse `'c!ppsize {person}'` to get the size instantly", inline = False)
+        embedHelp2.add_field(name = "`c!gt`", value = "You've seen Gnapika talk, it's weird init?\nUse `c!gt {word}` to get the translation of Gnap's fruits", inline = False)
         embedHelp2.add_field(name = "`c!_______`", value = "So you're bored huh? I can offer you some, 'exclusive' rewards for completing the hunt. More specifically, a role, which no-one, not even the admins will have. That is of course, assuming they don't complete the puzzle. happy hunting, `___saysgo`", inline = False)
         embedHelp2.set_footer(text = "developed with python, by colin the sleep waster, waster of all sleep", icon_url="https://i.imgur.com/trIK0QD.jpg")
         await channel.send(embed = embedHelp2)
@@ -309,6 +310,15 @@ async def on_message(message):
                 json.dump(settingsList, settings_List, indent=4)
                 settings_List.truncate()
                 await channel.send(f'_Gnap Translator has been set to `{settingsList["gnapToggle"]}`_')
+    
+    if header == f'{summon}gt':
+        translateThis = ' '.join(theMessage[1:])
+        with open('gnap.json', 'r') as gnap_List:
+            gnapList = json.load(gnap_List)
+            for word in gnapList:
+                if word["word"] == translateThis:
+                    await channel.send(f'{translateThis} = {word["def"]}')
+                    break
 
 #------------------------------------------------------
 
