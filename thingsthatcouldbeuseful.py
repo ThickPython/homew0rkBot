@@ -40,6 +40,7 @@ def getTeachers(RolesList):
 
 def makeEmbedMessage(user, userTeachers, homeworkDict):                             #reference https://discordjs.guide/popular-topics/embeds.html#embed-preview
     descriptionThis = ""                                                            #reference api https://discordpy.readthedocs.io/en/latest/api.html#embed
+    getFile('customDescription.json')
     with open('customDescription.json', 'r') as customDescription:
         readHere = json.load(customDescription)
         for eachDescription in readHere:
@@ -71,6 +72,7 @@ def addMember(userId, userRoles):
                 addUserRoles.append(eachRole.lower())
     addUser["teachers"] = addUserRoles
     teachersList.close()
+    open
     with open('users.json', 'r+')  as usersList:
         usersListList = json.load(usersList)
         usersListList.append(addUser)

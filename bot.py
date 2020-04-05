@@ -105,7 +105,7 @@ async def on_message(message):
         usersTeacherListTemp = CBU.getTeachers(message.author.roles)
         usersHWListTemp = []
 
-
+        getFile('teachers.json')
         with open('teachers.json', 'r') as teachers_homework:
             teachersHomeworkDict = json.load(teachers_homework)
             for eachTeacher in usersTeacherListTemp:
