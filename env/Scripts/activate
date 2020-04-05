@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\vinyl\Documents\HWBot\env"
+VIRTUAL_ENV="C:\Users\vinyl\Documents\homew0rkbot\homew0rkbot4Github\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

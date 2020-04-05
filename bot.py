@@ -1,13 +1,27 @@
 #VE reference https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
-import os 
+
+import os
+
+#activate environment
+#os.system('cmd /k "poetry shell" ')
+#os.system('cmd /k "python bot.py"')
+
 import calendar
 import discord
 import json
 import thingsthatcouldbeuseful as CBU
 import random
+import time
+import boto3
 from datetime import datetime, timedelta
 from threading import Timer
-import time
+from thingsthatcouldbeuseful import formatname, getFile, uploadFile
+
+
+
+
+#-----------------------------------------------
+#timer to keep track of things
 
 x=datetime.today()
 y = x.replace(day=x.day, hour=1, minute=0, second=0, microsecond=0) + timedelta(days=1)
@@ -18,18 +32,23 @@ secs=delta_t.total_seconds()
 t = Timer(secs, CBU.deleteOld())
 t.start()
 
+#------------------------------------------------
 
+#------------------------------------------------
+#discord client setup
 
-client = discord.Client()
-
+getFile('settings.json')
 with open('settings.json') as settings_file:
     settingsList = json.load(settings_file)
-    TOKEN = settingsList["appToken"]
     GUILD = settingsList["serverName"]
     summon = settingsList["summon"]
 
 
+TOKEN = os.environ['DISCORD_TOKEN']
+
 client = discord.Client()
+
+#-------------------------------------------------
 
 #class CustomClient(discord.Client):
 @client.event
@@ -86,6 +105,7 @@ async def on_message(message):
         usersTeacherListTemp = CBU.getTeachers(message.author.roles)
         usersHWListTemp = []
 
+
         with open('teachers.json', 'r') as teachers_homework:
             teachersHomeworkDict = json.load(teachers_homework)
             for eachTeacher in usersTeacherListTemp:
@@ -106,9 +126,9 @@ async def on_message(message):
             "due:" not in theMessage):
             await channel.send("incorrect usage of c!add command, use c!help to view usage")
         else:
+            getFile('teachers.json')
             with open('teachers.json', 'r') as teachersList:
                 teachersLista = json.load(teachersList)  
-        
             sortThis = theMessage
             print(sortThis)
             indexTeacher = sortThis.index("teacher:")
@@ -118,61 +138,52 @@ async def on_message(message):
             if indexDueDate - indexDescription == 1:    #reference https://www.geeksforgeeks.org/python-list-insert/
                 sortThis.insert(indexDueDate, "there is no description")
             indexDueDate = sortThis.index("due:")
-            print(indexTeacher, indexTitle, indexDescription, indexDueDate)
+            whereteacheris = 0 
             for eachTeacher in teachersLista:
                 if sortThis[indexTeacher+1].lower() == eachTeacher["name"]:
                     addHomework = {
-                            "title": CBU.formatname(' '.join(sortThis[(indexTitle+1):indexDescription])),
-                            "description": CBU.formatname(' '.join(sortThis[(indexDescription+1):indexDueDate])),
+                            "title": formatname(' '.join(sortThis[(indexTitle+1):indexDescription])),
+                            "description": formatname(' '.join(sortThis[(indexDescription+1):indexDueDate])),
                             "duedate": sortThis[-1]
                         }
                     for teacher in teachersLista:
-                        if teacher["name"] == sortThis[indexTeacher+1].lower():
+                        if teacher["name"] == sortThis[indexTeacher + 1].lower():
                             teachersLista[teachersLista.index(teacher)]["homework"].append(addHomework)
-                            with open('teachers.json', 'w') as teachersList:
-                                teachersList.seek(0)
-                                json.dump(teachersLista, teachersList, indent = 4)
-                                teachersList.truncate()
-                            await channel.send("it has been added")
-                    break     
+                            break
+                    break
+            with open('teachers.json', 'w') as teachersList:
+                json.dump(teachersLista, teachersList, indent=4)
+            uploadFile('teachers.json')
+            await channel.send("it has been added")  
     
     #remove
     if header == f'{summon}remove':
         theTeacher = theMessage[1].lower()
-        theTitle = CBU.formatname(' '.join(theMessage[2:]))
+        theTitle = formatname(' '.join(theMessage[2:]))
         errorReason = ""
-        with open('teachers.json', 'r+') as teachers_List:
+        getFile('teachers.json')
+        with open('teachers.json', 'r') as teachers_List:
             teachersList = json.load(teachers_List)
-            teacherFound = False
-            for teacher in teachersList:
-                if teacher['name'] == theTeacher:
-                    teacherFound = True
-                    updatedHomework = teacher["homework"].copy()
-                    if len(updatedHomework):
-                        for homework in updatedHomework:
-                            if theTitle == homework["title"]:
-                                updatedHomework.remove(homework)
-                    else:
-                        errorReason = "there is no homework for this teacher"
-                        await channel.send(f'Failed to delete homework because {errorReason}')
-                        break
-                    print(teacher["homework"])
-                    print("\n\n\n\n")
-                    print(updatedHomework)
-                    if teacher["homework"] != updatedHomework:
-                        await channel.send(f'Successfully deleted "{theTitle}" from {CBU.formatname(theTeacher)}')
-                    teacher["homework"] = updatedHomework
-                    
-            if teacherFound == False:
-                errorReason = "that's not a teacher in our database :/, contact a mod or Rez#4270 if you have a concern"
-                await channel.send(f'Failed to delete homework because {errorReason}')
-                    
-                    
-                
-            
+        for teacher in teachersList:
+            if teacher['name'] == theTeacher:
+                teacherFound = True
+                updatedHomework = teacher["homework"].copy()
+                if len(updatedHomework):
+                    for homework in updatedHomework:
+                        if theTitle == homework["title"]:
+                            updatedHomework.remove(homework)
+                else:
+                    errorReason = "there is no homework for this teacher"
+                    await channel.send(f'Failed to delete homework because {errorReason}')
+                    break
+                if teacher["homework"] != updatedHomework:
+                    await channel.send(f'Successfully deleted "{theTitle}" from {formatname(theTeacher)}')
+                teacher["homework"] = updatedHomework
+        with open('teachers.json', 'w') as teachers_List:
             teachers_List.seek(0)
             json.dump(teachersList, teachers_List, indent=4)
             teachers_List.truncate()
+        uploadFile(teachers.json)
             
         
                     
@@ -182,49 +193,51 @@ async def on_message(message):
            await channel.send("format incorrect, use c!help to view proper usage")
         else:
             theTeacher = theMessage[1].lower()
-            teachersLista = open('teachers.json', 'r')  #reference https://www.w3schools.com/python/python_file_open.asp
-            teachersList = json.load(teachersLista)
+            getFile('teachers.json')
+            with open('teachers.json', 'r') as teachersLista:  #reference https://www.w3schools.com/python/python_file_open.asp
+                teachersList = json.load(teachersLista)
 
             descriptionEmoji = ''
             """ if theTeacher in ['ton', 'villagomez', 'oliveira', 'kickham', 'yanez', 'thompson', 'stearns', 'lockett', 'gatewood', 'gadre']:
                 descriptionEmoji = f':{theTeacher}:' """
                 
-            embedView = discord.Embed(title=f'{CBU.formatname(theMessage[1])} assignments', description = descriptionEmoji)
+            embedView = discord.Embed(title=f'{formatname(theMessage[1])} assignments', description = descriptionEmoji)
 
             homeworkList = ""
             for eachTeacher in teachersList:
                 if eachTeacher["name"] == theTeacher:
                     if len(eachTeacher["homework"]) == 0 :
-                        embedView.add_field(name = "Homework", value = f'There is no homework for {CBU.formatname(theTeacher)}, rejoice for you are free')
+                        embedView.add_field(name = "Homework", value = f'There is no homework for {formatname(theTeacher)}, rejoice for you are free')
                     else:
                         for eachHomework in eachTeacher["homework"]:
                             embedView.add_field(name = f'**"{eachHomework["title"]}" due on {eachHomework["duedate"]}**', value = f"> {eachHomework['description']}", inline = False) 
     
             embedView.set_footer(text="developed with python, by colin sleep waster, waster of all sleep", icon_url="https://i.imgur.com/trIK0QD.jpg")
             await channel.send(embed = embedView)
-            
-            teachersLista.close()
     
     #customdescription
     if header == f'{summon}description':
         descriptor = ' '.join(theMessage[1:])
-        with open('customDescription.json', 'r+') as registeredNames:
+        getFile('customDescription.json')
+        with open('customDescription.json', 'r') as registeredNames:
             replaceWith = json.load(registeredNames)
-            addThis = {}
-            for descriptors in replaceWith:
-                if message.author.id == descriptors["discord id"]:
-                    descriptors["descriptor"] = descriptor
-                    break
-                else:
-                    addThis = {
-                        "discord id":message.author.id,
-                        "descriptor":descriptor
-                    }
-                    break
-            replaceWith.append(addThis)
+        addThis = {}
+        for descriptors in replaceWith:
+            if message.author.id == descriptors["discord id"]:
+                descriptors["descriptor"] = descriptor
+                break
+            else:
+                addThis = {
+                    "discord id":message.author.id,
+                    "descriptor":descriptor
+                }
+                break
+        replaceWith.append(addThis)
+        with open('customDescription.json', 'w') as registeredNames:
             registeredNames.seek(0)
             json.dump(replaceWith, registeredNames, indent = 4)
             registeredNames.truncate()
+        uploadFile('customDescription')
         await channel.send("Your description has been updated!")
             
  #------------------------------------------------------
@@ -252,12 +265,14 @@ async def on_message(message):
 #------------------------------------------------------
 #gnap
     if message.author.name == "NapKat":
+        getFile('settings.json')
         with open('settings.json', 'r') as settings_List:
             translated = []
             settingsList = json.load(settings_List)
             if settingsList["gnapToggle"] == "on":
                 #gnapMessage = message.content.split('')
-                with open('gnap.json') as gnap_List:
+                getFile('gnap.json')
+                with open('gnap.json', 'r') as gnap_List:
                     gnapList = json.load(gnap_List)
                     for word in theMessage:
                         foundword = False
@@ -281,15 +296,18 @@ async def on_message(message):
             message.author.name == "NapKat"):
             addWord = theMessage[1]
             addDef = ' '.join(theMessage[2:])
-            with open('gnap.json', 'r+') as gnap_List:
+            getFile('gnap.json')
+            with open('gnap.json', 'r') as gnap_List:
                 gnapList = json.load(gnap_List)
-                gnapList.append({
-                    "word": [addWord],
-                    "def": [addDef]
-                })
+            gnapList.append({
+                "word": addWord,
+                "def": addDef
+            })
+            with open('gnap.json', 'w') as gnap_List:
                 gnap_List.seek(0)
                 json.dump(gnapList, gnap_List, indent = 4)
                 gnap_List.truncate()
+            uploadFile('gnap.json')
             await channel.send("added word")
         else:
             await channel.send("you're not gnap")
@@ -300,25 +318,27 @@ async def on_message(message):
             message.author.name == "Vish" or
             message.author.name == "NapKat" or
             message.author.name == "Aethernolt"):
+            getFile('settings.json')
             with open('settings.json', 'r+') as settings_List:
                 settingsList = json.load(settings_List)
                 if settingsList["gnapToggle"] == "on":
                     settingsList["gnapToggle"] = "off"
                 else:
                     settingsList["gnapToggle"] = "on"
-                settings_List.seek(0)
                 json.dump(settingsList, settings_List, indent=4)
-                settings_List.truncate()
                 await channel.send(f'_Gnap Translator has been set to `{settingsList["gnapToggle"]}`_')
+            uploadFile('settings.json')
     
     if header == f'{summon}gt':
         translateThis = ' '.join(theMessage[1:])
+        print(translateThis)
+        getFile('gnap.json')
         with open('gnap.json', 'r') as gnap_List:
             gnapList = json.load(gnap_List)
-            for word in gnapList:
-                if word["word"] == translateThis:
-                    await channel.send(f'{translateThis} = {word["def"]}')
-                    break
+        for word in gnapList:
+            if word["word"] == translateThis:
+                await channel.send(f'{translateThis} = {word["def"]}')
+                break
 
 #------------------------------------------------------
 

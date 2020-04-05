@@ -1,9 +1,21 @@
 import json
 import discord
+import boto3
 from datetime import datetime
 
+S3_BUCKET = os.environ['S3_BUCKET']
+
+
+s3 = boto3.client('s3', aws_access_key_id=os.environ['CLOUDCUBE_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['CLOUDCUBE_SECRET_ACCESS_KEY'])
+
+
+def getFile(filename):
+    s3.download_file(S3_BUCKET, f'jbmhhy234xp5/public/{filename}', f'{filename}')
+
+def uploadFile(filename):
+    s3.upload_file(f'{filename}', S3_BUCKET, f'jbmhhy234xp5/public/{filename}')
+
 def formatname(name):
-    print(f"format name has been called with {name}")
     splitname = list(str(name))  #reference https://www.w3schools.com/python/ref_string_split.asp
     fixedname = [splitname[0].upper()]
     for eachLetter in splitname[1:]:
@@ -14,11 +26,13 @@ def getTeachers(RolesList):
 
     teachers = []
     for eachRole in RolesList:
+        getFile('teachers.json')
         with open('teachers.json', 'r') as teachersList:
             teachersListDict = json.load(teachersList)
             for eachTeacher in teachersListDict:
                 if str(eachRole.name).lower() == eachTeacher["name"]:
                     teachers.append(str(eachRole))
+
     return(teachers)
 
 
@@ -63,6 +77,7 @@ def addMember(userId, userRoles):
         json.dump(usersListList, usersList, indent=4)
         
 def deleteOld():
+    getFile('teachers.json')
     with open('teachers.json', 'r+') as teacherList:
         teacherListDict = json.load(teacherList)
         todayIs = datetime.today()
@@ -83,6 +98,7 @@ def deleteOld():
         teacherList.seek(0)
         json.dump(teacherListDict, teacherList, indent=4)
         teacherList.truncate()
+    uploadFile('teachers.json')
 
 def updatePuzzle(user, stage):
     currentStage = stage
@@ -107,4 +123,3 @@ def updatePuzzle(user, stage):
         log. """
 
 #{"title": "Covid chronicles", "description": "Check onenote content library > covid chronicles and follow instructions", "duedate": "4/6"}
-deleteOld()
