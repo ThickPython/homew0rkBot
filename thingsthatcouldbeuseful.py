@@ -1,6 +1,7 @@
 import json
 import discord
 import boto3
+import os
 from datetime import datetime
 
 S3_BUCKET = os.environ['S3_BUCKET']
