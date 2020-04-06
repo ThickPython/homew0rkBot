@@ -183,7 +183,7 @@ async def on_message(message):
             teachers_List.seek(0)
             json.dump(teachersList, teachers_List, indent=4)
             teachers_List.truncate()
-        uploadFile(teachers.json)
+        uploadFile('teachers.json')
             
         
                     
