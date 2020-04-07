@@ -33,6 +33,7 @@ def getTeachers(RolesList):
             for eachTeacher in teachersListDict:
                 if str(eachRole.name).lower() == eachTeacher["name"]:
                     teachers.append(str(eachRole))
+                teachers.append("ee")
 
     return(teachers)
 
