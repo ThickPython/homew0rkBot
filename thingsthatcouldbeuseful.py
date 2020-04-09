@@ -62,7 +62,7 @@ def makeEmbedMessage2(teacher, homeworkDict):
     embedThis = discord.Embed(title=teacher, description = "")
     addValue = ""
     for eachHomework in homeworkDict:
-        addValue += f"\n__'{eachIndivHW['title']}' due on **{eachIndivHW['duedate']}**__\n> Description: {eachIndivHW['description']} "
+        addValue += f"\n__'{eachHomework['title']}' due on **{eachHomework['duedate']}**__\n> Description: {eachHomework['description']} "
     embedThis.add_field(name = 'homework', value = addValue)
     return(embedThis)
 
