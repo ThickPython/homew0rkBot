@@ -1,4 +1,6 @@
 import discord
+import os
+from thingsthatcouldbeuseful import getFile
 
 TOKEN = os.environ['DISCORD_TOKEN']
 
