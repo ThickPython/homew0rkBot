@@ -23,14 +23,14 @@ from thingsthatcouldbeuseful import formatname, getFile, uploadFile
 #-----------------------------------------------
 #timer to keep track of things
 
-x=datetime.today()
+""" x=datetime.today()
 y = x.replace(day=x.day, hour=1, minute=0, second=0, microsecond=0) + timedelta(days=1)
 delta_t = y - x
 
 secs=delta_t.total_seconds()
 
 t = Timer(secs, CBU.deleteOld())
-t.start()
+t.start() """
 
 #------------------------------------------------
 
