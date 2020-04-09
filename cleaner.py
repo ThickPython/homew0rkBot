@@ -24,7 +24,8 @@ def deleteOld():
                     print(f'removing {homework}')
                     updatedHomework.remove(homework)
             teacher["homework"] = updatedHomework
-            json.dump(teacherListDict, teacherList)
+            teacherList.seek(0)
+            json.dump(teacherListDict, teacherList, indent = 4)
             teacherList.truncate()
     uploadFile('teachers.json')
 
