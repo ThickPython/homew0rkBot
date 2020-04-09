@@ -101,10 +101,9 @@ async def on_message(message):
     
 
     #viewme v2.0
-    if header == f'{summon}me':
+    if header == f'{summon}meold':
         usersTeacherListTemp = CBU.getTeachers(message.author.roles)
         usersHWListTemp = []
-
         getFile('teachers.json')
         with open('teachers.json', 'r') as teachers_homework:
             teachersHomeworkDict = json.load(teachers_homework)
@@ -116,7 +115,21 @@ async def on_message(message):
                                 "teacher":eachTeacherFile["name"],
                                 "homework":eachTeacherFile["homework"]
                             })
-        await channel.send(embed = CBU.makeEmbedMessage(message.author, message.author.roles, usersHWListTemp))
+        #await channel.send(embed = CBU.makeEmbedMessage(message.author, message.author.roles, usersHWListTemp))
+    
+    if header == f'{summon}me':
+        channelMe = message.author.create_dm()
+        usersTeacherListTemp = CBU.getTeachers(message.author.roles)
+        usersHWListTemp = []
+        getFile('teachers.json')
+        with open('teachers.json', 'r') as teachers_homework:
+            teachersHomeworkDict = json.load(teachers_homework)
+            for eachTeacher in usersTeacherListTemp:
+                for eachTeacherFile in teachersHomeworkDict:
+                    if eachTeacher.lower() == eachTeacherFile["name"]:
+                        if len(eachTeacherFile["homework"]) != 0:
+                            await channelMe.send(CBU.makeEmbedMessage2(eachTeacherFile["name"], eachTeacherFile["homework"]))
+
 
     #add
     if header == f'{summon}add':

@@ -55,7 +55,15 @@ def makeEmbedMessage(user, userTeachers, homeworkDict):                         
             addValue += f"\n__'{eachIndivHW['title']}' due on **{eachIndivHW['duedate']}**__\n> Description: {eachIndivHW['description']} "
         embedThis.add_field(name = f'`{formatname(eachHomework["teacher"])}`', value = addValue, inline = False)
     embedThis.set_thumbnail(url = user.avatar_url)
-    embedThis.set_footer(text = "developed with python", icon_url="https://i.imgur.com/trIK0QD.jpg")
+    #embedThis.set_footer(text = "developed with python", icon_url="https://i.imgur.com/trIK0QD.jpg")
+    return(embedThis)
+
+def makeEmbedMessage2(teacher, homeworkDict):
+    embedThis = discord.Embed(title=teacher, description = "")
+    addValue = ""
+    for eachHomework in homeworkDict:
+        addValue += f"\n__'{eachIndivHW['title']}' due on **{eachIndivHW['duedate']}**__\n> Description: {eachIndivHW['description']} "
+    embedThis.add_field(name = 'homework', value = addValue)
     return(embedThis)
 
 
