@@ -79,30 +79,6 @@ def addMember(userId, userRoles):
         usersListList.append(addUser)
         usersList.seek(0)
         json.dump(usersListList, usersList, indent=4)
-        
-def deleteOld():
-    getFile('teachers.json')
-    with open('teachers.json', 'r+') as teacherList:
-        teacherListDict = json.load(teacherList)
-        todayIs = datetime.today()
-        for teacher in teacherListDict:
-            updatedHomework = teacher["homework"].copy()
-            for homework in updatedHomework:
-                homeworkDueDate = homework["duedate"].split("/")
-                if int(todayIs.day) > int(homeworkDueDate[1]) and int(todayIs.month) > int(homeworkDueDate[0]):
-                    print(f'removing {homework}')
-                    updatedHomework.remove(homework)
-                elif int(todayIs.day) < int(homeworkDueDate[1]) and int(todayIs.month) > int(homeworkDueDate[0]):
-                    print(f'removing {homework}')
-                    updatedHomework.remove(homework)
-                elif int(todayIs.day) > int(homeworkDueDate[1]) and int(todayIs.month) > int(homeworkDueDate[0]):
-                    print(f'removing {homework}')
-                    updatedHomework.remove(homework)
-            teacher["homework"] = updatedHomework
-        teacherList.seek(0)
-        json.dump(teacherListDict, teacherList, indent=4)
-        teacherList.truncate()
-    uploadFile('teachers.json')
 
 def updatePuzzle(user, stage):
     currentStage = stage
@@ -127,3 +103,5 @@ def updatePuzzle(user, stage):
         log. """
 
 #{"title": "Covid chronicles", "description": "Check onenote content library > covid chronicles and follow instructions", "duedate": "4/6"}
+
+print("TTCBU is up and running!")
