@@ -129,7 +129,7 @@ async def on_message(message):
                 for eachTeacherFile in teachersHomeworkDict:
                     if eachTeacher.lower() == eachTeacherFile["name"]:
                         if len(eachTeacherFile["homework"]) != 0:
-                            await message.author.dm_channel.send(CBU.makeEmbedMessage2(eachTeacherFile["name"], eachTeacherFile["homework"]))
+                            await message.author.dm_channel.send(embed = CBU.makeEmbedMessage2(eachTeacherFile["name"], eachTeacherFile["homework"]))
 
 
     #add
