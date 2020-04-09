@@ -24,6 +24,8 @@ def deleteOld():
                     print(f'removing {homework}')
                     updatedHomework.remove(homework)
             teacher["homework"] = updatedHomework
+            json.dump(teacherListDict, teacherList)
+            teacherList.truncate()
     uploadFile('teachers.json')
 
 print("cleaner is up and running!")
