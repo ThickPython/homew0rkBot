@@ -78,7 +78,7 @@ async def on_message(message):
     #help
     if header == f'{summon}help':
         embedHelp = discord.Embed(title = "Help", description = "A quick how 2 on how to do things")
-        embedHelp.add_field(name = "c!me", value = "View all your teachers including ongoing assignments (don't worry, we already know who your teachers are ;)\nUse `c!me` to summon")
+        embedHelp.add_field(name = "c!me", value = "View all your teachers including ongoing assignments (don't worry, we already know who your teachers are lul)\nUse `c!me` to summon, and then check your Dm's")
         embedHelp.add_field(name = "c!add", value = "Adds homework and due date to a certain teacher\nUse `c!add teacher: {teacher} title: {title of assignment} description: {description of assignment} due: {due date}` \n(note: YES IT'S CASE SENSITIVE)", inline = False)
         embedHelp.add_field(name = "c!view", value = "Views current assignments and due dates for a certain teacher\nUse `c!view {teacher}` to summon", inline = False)
         embedHelp.add_field(name = "c!description", value = "Updates your c!viewme description to whatever you want (even supports emojis!)\nUse `c!descrip {description}` to update", inline = False)
@@ -130,7 +130,7 @@ async def on_message(message):
                     if eachTeacher.lower() == eachTeacherFile["name"]:
                         if len(eachTeacherFile["homework"]) != 0:
                             await message.author.dm_channel.send(embed = CBU.makeEmbedMessage2(eachTeacherFile["name"], eachTeacherFile["homework"]))
-
+        await channel.send("You've been DM'ed a list of your Homework go check it")
 
     #add
     if header == f'{summon}add':
