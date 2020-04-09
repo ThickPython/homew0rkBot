@@ -118,7 +118,8 @@ async def on_message(message):
         #await channel.send(embed = CBU.makeEmbedMessage(message.author, message.author.roles, usersHWListTemp))
     
     if header == f'{summon}me':
-        channelMe = message.author.create_dm()
+        if message.author.dm_channel == None:
+            await message.author.create_dm()
         usersTeacherListTemp = CBU.getTeachers(message.author.roles)
         usersHWListTemp = []
         getFile('teachers.json')
@@ -128,7 +129,7 @@ async def on_message(message):
                 for eachTeacherFile in teachersHomeworkDict:
                     if eachTeacher.lower() == eachTeacherFile["name"]:
                         if len(eachTeacherFile["homework"]) != 0:
-                            await channelMe.send(CBU.makeEmbedMessage2(eachTeacherFile["name"], eachTeacherFile["homework"]))
+                            await message.author.dm_channel.send(CBU.makeEmbedMessage2(eachTeacherFile["name"], eachTeacherFile["homework"]))
 
 
     #add

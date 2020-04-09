@@ -1,5 +1,6 @@
 import discord
 import os
+import json
 from thingsthatcouldbeuseful import getFile
 
 TOKEN = os.environ['DISCORD_TOKEN']
@@ -12,6 +13,8 @@ with open('settings.json') as settings_file:
 
 
 client = discord.Client()
+
+print("offline manager ironically online")
 
 @client.event
 async def on_message(message):
