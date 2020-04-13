@@ -313,7 +313,7 @@ async def on_message(message):
             getFile('gnap.json')
             with open('gnap.json', 'r') as gnap_List:
                 gnapList = json.load(gnap_List)
-            if addWord: in gnapList:
+            if addWord in gnapList:
                 await channel.send("You've already added this word")
                 return
             gnapList[addWord] = addDef
