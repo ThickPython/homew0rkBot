@@ -354,7 +354,7 @@ async def on_message(message):
                 await channel.send(f'{translateThis} = {gnapList[word]}')
                 return
 
-    if header == f'{summon}gtreverse'
+    if header == f'{summon}gtreverse':
         translateThis = ' '.join(theMessage[1:])
         print(translateThis)
         getFile('gnap.json')
