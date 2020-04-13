@@ -54,6 +54,7 @@ client = discord.Client()
 @client.event
 async def on_ready():
     print('lets get this party started')
+    await client.change_presence(status = discord.Status.online, activity= discord.Game(name = "Fluffy the bruh, c!help"))
     """ 
     guild = discord.utils.get(client.guilds, name=GUILD)
     listOfMembers = guild.members
@@ -312,10 +313,10 @@ async def on_message(message):
             getFile('gnap.json')
             with open('gnap.json', 'r') as gnap_List:
                 gnapList = json.load(gnap_List)
-            gnapList.append({
-                "word": addWord,
-                "def": addDef
-            })
+            if addWord: in gnapList:
+                await channel.send("You've already added this word")
+                return
+            gnapList[addWord] = addDef
             with open('gnap.json', 'w') as gnap_List:
                 gnap_List.seek(0)
                 json.dump(gnapList, gnap_List, indent = 4)
@@ -324,6 +325,7 @@ async def on_message(message):
             await channel.send("added word")
         else:
             await channel.send("you're not gnap")
+            return
 
     if header == f'{summon}togglegnap':
         if (message.author.name == "Rez" or 
@@ -344,14 +346,24 @@ async def on_message(message):
     
     if header == f'{summon}gt':
         translateThis = ' '.join(theMessage[1:])
+        getFile('gnap.json')
+        with open('gnap.json', 'r') as gnap_List:
+            gnapList = json.load(gnap_List)
+        for word in gnapList:
+            if word == translateThis:
+                await channel.send(f'{translateThis} = {gnapList[word]}')
+                return
+
+    if header == f'{summon}gtreverse'
+        translateThis = ' '.join(theMessage[1:])
         print(translateThis)
         getFile('gnap.json')
         with open('gnap.json', 'r') as gnap_List:
             gnapList = json.load(gnap_List)
         for word in gnapList:
-            if word["word"] == translateThis:
-                await channel.send(f'{translateThis} = {word["def"]}')
-                break
+            if gnapList[word].lower() = translateThis.lower():
+                await channel.send(f'{translateThis} = {word}')
+                return
 
 #------------------------------------------------------
 
