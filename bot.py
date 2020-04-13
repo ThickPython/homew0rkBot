@@ -361,7 +361,7 @@ async def on_message(message):
         with open('gnap.json', 'r') as gnap_List:
             gnapList = json.load(gnap_List)
         for word in gnapList:
-            if gnapList[word].lower() = translateThis.lower():
+            if gnapList[word].lower() == translateThis.lower():
                 await channel.send(f'{translateThis} = {word}')
                 return
 
