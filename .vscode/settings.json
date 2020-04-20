@@ -1,4 +1,6 @@
 {
-    "python.pythonPath": "C:\\Users\\vinyl\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
+    "python.pythonPath": "env\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
     "python.formatting.provider": "black"
 }

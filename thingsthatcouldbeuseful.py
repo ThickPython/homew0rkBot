@@ -10,10 +10,10 @@ S3_BUCKET = os.environ['S3_BUCKET']
 s3 = boto3.client('s3', aws_access_key_id=os.environ['CLOUDCUBE_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['CLOUDCUBE_SECRET_ACCESS_KEY'])
 
 
-def getFile(filename):
+def get_file(filename):
     s3.download_file(S3_BUCKET, f'jbmhhy234xp5/public/{filename}', f'{filename}')
 
-def uploadFile(filename):
+def upload_file(filename):
     s3.upload_file(f'{filename}', S3_BUCKET, f'jbmhhy234xp5/public/{filename}')
 
 def formatname(name):
@@ -27,7 +27,7 @@ def getTeachers(RolesList):
 
     teachers = []
     for eachRole in RolesList:
-        getFile('teachers.json')
+        get_file('teachers.json')
         with open('teachers.json', 'r') as teachersList:
             teachersListDict = json.load(teachersList)
             for eachTeacher in teachersListDict:
@@ -41,7 +41,7 @@ def getTeachers(RolesList):
 
 def makeEmbedMessage(user, userTeachers, homeworkDict):                             #reference https://discordjs.guide/popular-topics/embeds.html#embed-preview
     descriptionThis = ""                                                            #reference api https://discordpy.readthedocs.io/en/latest/api.html#embed
-    getFile('customDescription.json')
+    get_file('customDescription.json')
     with open('customDescription.json', 'r') as customDescription:
         readHere = json.load(customDescription)
         for eachDescription in readHere:
