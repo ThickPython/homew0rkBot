@@ -327,6 +327,9 @@ async def on_message(message):
                 return
             else: 
                 await channel.send(f"{translate_this} doesn't have any Gnap equivalent!")
+    
+    if "4/20" in message.content or "420" in message.content:
+        await channel.send(f"Haha it's 4/20 that's the funny weed drug date hahahaha\nlaugh\nnow.")
 
 #------------------------------------------------------
 
