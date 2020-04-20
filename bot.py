@@ -39,7 +39,7 @@ t.start() """
 
 get_file('settings.json')
 with open('settings.json') as settings_file_json:
-    settings_list = json.load(settings_file)
+    settings_list = json.load(settings_file_json)
     GUILD = settings_list["serverName"]
     summon = settings_list["summon"]
 
