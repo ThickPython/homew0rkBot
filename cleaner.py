@@ -1,12 +1,12 @@
 import time
 import json
 from datetime import datetime
-from thingsthatcouldbeuseful import getFile, uploadFile
+from thingsthatcouldbeuseful import get_file, upload_file
 
 starttime=time.time()
 
 def deleteOld():
-    getFile('teachers.json')
+    get_file('teachers.json')
     with open('teachers.json', 'r+') as teacherList:
         teacherListDict = json.load(teacherList)
         todayIs = datetime.today()
@@ -27,7 +27,7 @@ def deleteOld():
             teacherList.seek(0)
             json.dump(teacherListDict, teacherList, indent = 4)
             teacherList.truncate()
-    uploadFile('teachers.json')
+    upload_file('teachers.json')
 
 print("cleaner is up and running!")
 

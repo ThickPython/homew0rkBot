@@ -239,7 +239,7 @@ async def on_message(message):
 #gnap
     if message.author.name == "NapKat":
         get_file('settings.json')
-        with open('settings.json', 'r') as teachers_list_json:
+        with open('settings.json', 'r') as settings_list_json:
             translated = []
             settings_list = json.load(settings_list_json)
             if settings_list["gnapToggle"] == "on":
