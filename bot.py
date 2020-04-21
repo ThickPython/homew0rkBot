@@ -306,7 +306,7 @@ async def on_message(message):
     if header == f'{summon}gt':
         translate_this = ' '.join(the_message[1:])
         get_file('gnap.json')
-        with open('gnap.json', 'r') as gnap_list_jsont:
+        with open('gnap.json', 'r') as gnap_list_json:
             gnap_list = json.load(gnap_list_json)
         for word in gnap_list:
             if word == translate_this:
