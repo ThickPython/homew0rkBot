@@ -312,8 +312,7 @@ async def on_message(message):
             if word == translate_this:
                 await channel.send(f'{translate_this} = {gnap_list[word]}')
                 return
-            else: 
-                await channel.send(f"{translate_this} is not a word!")
+        await channel.send(f"{translate_this} is not a word!")
 
     if header == f'{summon}gtreverse':
         translate_this = ' '.join(the_message[1:])
@@ -325,8 +324,7 @@ async def on_message(message):
             if gnap_list[word].lower() == translate_this.lower():
                 await channel.send(f'{translate_this} = {word}')
                 return
-            else: 
-                await channel.send(f"{translate_this} doesn't have any Gnap equivalent!")
+        await channel.send(f"{translate_this} doesn't have any Gnap equivalent!")
     
 
 #------------------------------------------------------
