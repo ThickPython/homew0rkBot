@@ -218,8 +218,8 @@ async def on_message(message):
             embedView = discord.Embed(title=f'{formatname(the_message[1])} assignments', description = descriptionEmoji)
 
             homework_list = ""
+            teacher_found = False
             for each_teacher in teachers_list:
-                teacher_found = False
                 if each_teacher["name"] == the_teacher:
                     teacher_found = True
                     if len(each_teacher["homework"]) == 0 :
@@ -227,10 +227,11 @@ async def on_message(message):
                     else:
                         for eachHomework in each_teacher["homework"]:
                             embedView.add_field(name = f'**"{eachHomework["title"]}" due on {eachHomework["duedate"]}**', value = f"> {eachHomework['description']}", inline = False) 
-                if teacher_found:
-                    await channel.send(embed = embedView)
-                else:
-                    await channel.send(f"`{the_teacher}` check your spelling and try again (If you're confident that this teacher exists, contact an admin)")
+                    break
+            if teacher_found == True:
+                await channel.send(embed = embedView)
+            elif teacher_found == False:
+                await channel.send(f"`{the_teacher}` check your spelling and try again (If you're confident that this teacher exists, contact an admin)")
                 return
 
 
