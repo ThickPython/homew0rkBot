@@ -150,8 +150,10 @@ async def on_message(message):
                 sort_this.insert(indexDueDate, "there is no description")
             indexDueDate = sort_this.index("due:")
             whereteacheris = 0 
+            teacher_found = False
             for each_teacher in teachers_lista:
                 if sort_this[indexTeacher+1].lower() == each_teacher["name"]:
+                    teacher_found = True
                     addHomework = {
                             "title": formatname(' '.join(sort_this[(indexTitle+1):indexDescription])),
                             "description": formatname(' '.join(sort_this[(indexDescription+1):indexDueDate])),
@@ -161,11 +163,17 @@ async def on_message(message):
                         if teacher["name"] == sort_this[indexTeacher + 1].lower():
                             teachers_lista[teachers_lista.index(teacher)]["homework"].append(addHomework)
                             break
+                        
+                    await channel.send("it has been added") 
                     break
-            with open('teachers.json', 'w') as teachers_list_json:
-                json.dump(teachers_lista, teachers_list_json, indent=4)
-            upload_file('teachers.json')
-            await channel.send("it has been added")  
+            
+            if teacher_found == False:
+                await channel.send("We couldn't find that teacher, try again")
+                return
+            else:
+                with open('teachers.json', 'w') as teachers_list_json:
+                    json.dump(teachers_lista, teachers_list_json, indent=4)
+                upload_file('teachers.json')  
     
     #remove
     if header == f'{summon}remove':
