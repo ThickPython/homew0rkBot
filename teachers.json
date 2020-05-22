@@ -1,198 +1,26 @@
-[
-    {
-        "name": "yanez",
-        "homework": [
-            {
-                "title": "Watch 1c",
-                "description": "Just do it or she'll humiliate you",
-                "duedate": "4/13"
-            }
-        ]
-    },
-    {
-        "name": "calvert",
-        "homework": [
-            {
-                "title": "Guided disc. write up",
-                "description": "Look in onenote",
-                "duedate": "4/11"
-            }
-        ]
-    },
-    {
-        "name": "alvarez",
-        "homework": []
-    },
-    {
-        "name": "ramos",
-        "homework": [
-            {
-                "title": "Hl essay",
-                "description": "4-5 paragraph full essay on persepolis on turnitin",
-                "duedate": "4/22"
-            }
-        ]
-    },
-    {
-        "name": "villagomez",
-        "homework": []
-    },
-    {
-        "name": "gatewood",
-        "homework": []
-    },
-    {
-        "name": "hickman",
-        "homework": []
-    },
-    {
-        "name": "kickham",
-        "homework": [
-            {
-                "title": "Webassign",
-                "description": "Rotation stuff",
-                "duedate": "4/9"
-            }
-        ]
-    },
-    {
-        "name": "lockett",
-        "homework": []
-    },
-    {
-        "name": "thompson",
-        "homework": []
-    },
-    {
-        "name": "ton",
-        "homework": [
-            {
-                "title": "Webassign rotational kinematics and dynamics",
-                "description": "It's like 10 questions go do it",
-                "duedate": "4/9"
-            },
-            {
-                "title": "4 khan academy exercises",
-                "description": "Theres 4 j do them by 11:59pm april 9th",
-                "duedate": "4/10"
-            }
-        ]
-    },
-    {
-        "name": "bennett",
-        "homework": []
-    },
-    {
-        "name": "evans",
-        "homework": []
-    },
-    {
-        "name": "hope",
-        "homework": [
-            {
-                "title": "Problems plus",
-                "description": "Check onenote page",
-                "duedate": "4/10"
-            }
-        ]
-    },
-    {
-        "name": "becker",
-        "homework": [
-            {
-                "title": "Test",
-                "description": "There is no description",
-                "duedate": "4/8"
-            }
-        ]
-    },
-    {
-        "name": "cuffin",
-        "homework": [
-            {
-                "title": "Artist vs art",
-                "description": "Self guided lesson 3.7",
-                "duedate": "4/12"
-            }
-        ]
-    },
-    {
-        "name": "daniels",
-        "homework": []
-    },
-    {
-        "name": "art/film/design",
-        "homework": []
-    },
-    {
-        "name": "business and management",
-        "homework": []
-    },
-    {
-        "name": "music",
-        "homework": [
-            {
-                "title": "Mli presentation powerpoint draft",
-                "description": "It's probably in the onenote somewhere",
-                "duedate": "4/24"
-            }
-        ]
-    },
-    {
-        "name": "french",
-        "homework": []
-    },
-    {
-        "name": "chinese",
-        "homework": [
-            {
-                "title": "Chinese 4 hw",
-                "description": "Go look in the calendar it's all in the powerpoint",
-                "duedate": "4/9"
-            },
-            {
-                "title": "Chinese 4 all lesson 9 workbook exercises",
-                "description": "Do it all and link for listening exercises in ppt",
-                "duedate": "4/20"
-            },
-            {
-                "title": "Chinese 4 \u538b\u529b\u7ec3\u4e60\u9898",
-                "description": "We hav paper copies from beforr school closure and we need to interview someone for this",
-                "duedate": "4/20"
-            },
-            {
-                "title": "Chinese 4 flyer",
-                "description": "Create flyer for an after school prohram or club like robotics or sat or swim team or smth 300 to 480 words",
-                "duedate": "4/20"
-            },
-            {
-                "title": "Chinese 4 \u8bf7\u660e\u8282",
-                "description": "Do 2 readings about this. see instructions on readings page in traditions section in onenote",
-                "duedate": "4/20"
-            }
-        ]
-    },
-    {
-        "name": "spanish",
-        "homework": []
-    },
-    {
-        "name": "oliveira",
-        "homework": [
-            {
-                "title": "Chapter 29 notes",
-                "description": "Only for 7th period otherwise you're fine",
-                "duedate": "4/9"
-            },
-            {
-                "title": "Ch30 notes",
-                "description": "Do it over break",
-                "duedate": "4/20"
-            }
-        ]
-    },
-    {
-        "name": "ee",
-        "homework": []
-    }
-]
+{
+    "yanez": [],
+    "calvert": [],
+    "alvarez": [],
+    "ramos": [],
+    "villagomez": [],
+    "gatewood": [],
+    "hickman": [],
+    "lockett": [],
+    "thompson": [],
+    "ton": [],
+    "bennett": [],
+    "evans": [],
+    "hope": [],
+    "becker": [],
+    "cuffin": [],
+    "daniels": [],
+    "art/film/design": [],
+    "business and management": [],
+    "music": [],
+    "french": [],
+    "chinese": [],
+    "spanish": [],
+    "oliveira": [],
+    "ee": []
+}
