@@ -28,6 +28,7 @@ async def ping(message):
     await message.channel.send("Pong!")
 
 async def evaluate(message):
+    await client.wait_until_ready()
     eval_this = message.content.split(' ')
     eval_this.remove(eval_this[0])
     eval_this = ' '.join(eval_this)

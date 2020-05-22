@@ -5,7 +5,7 @@ from devutil import *
 client = discord.Client()
 
 #viewme v2.0
-async def me(message):
+async def hw(message):
     channel = message.channel
     the_message = message.content.split(' ')
     if message.author.dm_channel == None:
@@ -20,9 +20,9 @@ async def me(message):
                     oh_look_theres_homework = True
                     await message.author.dm_channel.send(embed = makeEmbedMessage2(each_teacher_file, homework_dict[each_teacher_file]))
     if oh_look_theres_homework:
-        await channel.send("You've been DM'ed a list of your Homework go check it")
+        await channel.send("You've been DM'ed a list of your Homework!")
     else:
-        await channel.send("My would you look at that there's no homework! That or you've been lazy and just didn't add anything...But that's okay")
+        await channel.send("You have no homework! (disclaimer: at this time no one realy enters anything which means there is probably homework)")
 
 async def add(message):
     channel = message.channel
@@ -91,7 +91,7 @@ async def remove(message):
                 await channel.send(f'Failed to delete homework because {errorReason}')
                 break
             if homework_list[teacher] != updatedHomework:
-                await channel.send(f'Successfully deleted "{the_title}" from {formatname(the_teacher)}')
+                await channel.send(f'Successfully deleted "{the_title}" from {the_teacher}')
             homework_list[teacher] = updatedHomework
     if teacher_found == False:
         await channel.send(f"We couldn't find `{the_teacher}`. Check your spelling and try again")
@@ -119,7 +119,7 @@ async def view(message):
         """ if the_teacher in ['ton', 'villagomez', 'oliveira', 'kickham', 'yanez', 'thompson', 'stearns', 'lockett', 'gatewood', 'gadre']:
             descriptionEmoji = f':{the_teacher}:' """
             
-        embed_view = discord.Embed(title=f'{formatname(the_message[1])} assignments', description = descriptionEmoji)
+        embed_view = discord.Embed(title=f'{the_message[1]} assignments', description = descriptionEmoji)
 
         return_homework_list = ""
         teacher_found = False
@@ -127,7 +127,7 @@ async def view(message):
             if each_teacher == the_teacher:
                 teacher_found = True
                 if len(homework_list[each_teacher]) == 0 :
-                    embed_view.add_field(name = "Homework", value = f'There is no homework for {formatname(the_teacher)}')
+                    embed_view.add_field(name = "Homework", value = f'There is no homework for {the_teacher}')
                 else:
                     for eachHomework in homework_list[each_teacher]:
                         embed_view.add_field(name = f'**"{eachHomework["title"]}" due on {eachHomework["duedate"]}**', value = f"> {eachHomework['description']}", inline = False) 

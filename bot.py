@@ -47,7 +47,7 @@ commands = [
     "add",
     "view",
     "remove",
-    "me",
+    "hw",
     "gnapadd",
     "gt",
     "gtreverse",
@@ -78,7 +78,7 @@ async def on_message(message):
     #help
     if header == f'{summon}help':
         embedHelp = discord.Embed(title = "Help", description = "A quick how 2 on how to do things")
-        embedHelp.add_field(name = "c!me", value = "View all your teachers including ongoing assignments (don't worry, we already know who your teachers are lul)\nUse `c!me` to summon, and then check your Dm's")
+        embedHelp.add_field(name = "c!hw", value = "View all your teachers including ongoing assignments (don't worry, we already know who your teachers are lul)\nUse `c!me` to summon, and then check your Dm's")
         embedHelp.add_field(name = "c!add", value = "Adds homework and due date to a certain teacher\nUse `c!add teacher: {teacher} title: {title of assignment} description: {description of assignment} due: {due date}` \n(note: YES IT'S CASE SENSITIVE)", inline = False)
         embedHelp.add_field(name = "c!view", value = "Views current assignments and due dates for a certain teacher\nUse `c!view {teacher}` to summon", inline = False)
         embedHelp.add_field(name = "c!remove", value = "Removes an assignment from a certain teacher, remember to use c!view {teacher} so you can copy/paste the assignment name\nUse `c!remove {teacher} {exact assignment name}` to remove", inline = False)
