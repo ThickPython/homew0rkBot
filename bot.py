@@ -119,7 +119,7 @@ async def on_message(message):
                 else:
                     await eval(f"{command}")(message)
         for word in cusswords:
-            if word in message.content.lower:
+            if word in message.content.lower():
                 await message.channel.send("yeah no cursing stop it")
                 break   
 
