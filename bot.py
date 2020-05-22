@@ -109,7 +109,7 @@ async def on_message(message):
             await eval(f"{command}")(message)
 
     if message.author.id != 241288855368499200:
-        return
+        pass
     else:
         for command in admincommands:
             if header.lower() == f"{summon}{command}":
