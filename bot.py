@@ -63,6 +63,16 @@ admincommands = [
     "removeteacher",
     "eval"
 ]
+
+cusswords = [
+    "fuck",
+    "shit",
+    "fk",
+    "sht",
+    "bitch",
+    "fuk",
+    "retard",
+]
     
 
 @client.event
@@ -98,13 +108,19 @@ async def on_message(message):
         if header.lower() == f"{summon}{command}":
             await eval(f"{command}")(message)
 
-    if message.author.id == 241288855368499200:
+    if message.author.id != 241288855368499200:
+        return
+    else:
         for command in admincommands:
             if header.lower() == f"{summon}{command}":
                 if header.lower() == f"{summon}eval":
                     await eval(f"evaluate")(message)
                 else:
                     await eval(f"{command}")(message)
+        for word in cusswords:
+            if word in message.content:
+                await message.channel.send("yeah no cursing stop it")
+                break   
 
 
 
