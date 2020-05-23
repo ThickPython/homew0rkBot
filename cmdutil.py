@@ -36,3 +36,13 @@ async def evaluate(message):
     eval_result = str(eval(eval_this))
 
     await message.channel.send(f"```\n{eval_result}\n```")
+
+async def snipe(message, snipes):
+    if message.channel.id in snipes:
+        sniped = snipes[message.channel.id]
+        await message.channel.send(f"`{sniped.cotent}` - {sniped.author.name}")
+        del(snipes[message.channel.id])
+        return snipes
+    else:
+        await message.channel.send("nothing to snipe!")
+        return snipes

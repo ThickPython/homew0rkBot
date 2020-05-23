@@ -53,7 +53,8 @@ commands = [
     "gtreverse",
 
     "avy",
-    "ping"
+    "ping",
+    "snipe",
 
 ]
 
@@ -74,7 +75,12 @@ cusswords = [
     "retard",
     "cunt"
 ]
-    
+
+snipes = {}
+
+@client.event
+async def on_message_delete(message):
+    snipes[message.channel.id] = message
 
 @client.event
 async def on_message(message): 
@@ -107,7 +113,10 @@ async def on_message(message):
 
     for command in commands:
         if header.lower() == f"{summon}{command}":
-            await eval(f"{command}")(message)
+            if header.lower() == f"{summon}snipe":
+                snipes = await eval(f"evaluate")(message, snipes)
+            else:
+                await eval(f"{command}")(message)
 
     if message.author.id != 241288855368499200:
         pass
@@ -121,7 +130,7 @@ async def on_message(message):
         for word in cusswords:
             if word in message.content.lower():
                 await message.channel.send("yeah no cursing stop it")
-                break   
+                break
 
 
 
