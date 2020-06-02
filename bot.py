@@ -65,17 +65,6 @@ admincommands = [
     "eval"
 ]
 
-cusswords = [
-    "fuck",
-    "shit",
-    "fk",
-    "sht",
-    "bitch",
-    "fuk",
-    "retard",
-    "cunt"
-]
-
 snipes = {}
 
 @client.event
@@ -127,10 +116,6 @@ async def on_message(message):
                     await eval(f"evaluate")(message)
                 else:
                     await eval(f"{command}")(message)
-        for word in cusswords:
-            if word in message.content.lower():
-                await message.channel.send("yeah no cursing stop it")
-                break
 
 
 
