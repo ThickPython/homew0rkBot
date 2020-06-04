@@ -37,12 +37,9 @@ async def evaluate(message):
 
     await message.channel.send(f"```\n{eval_result}\n```")
 
-async def snipe(message, snipes):
-    if message.channel.id in snipes:
-        sniped = snipes[message.channel.id]
-        await message.channel.send(f"`{sniped.cotent}` - {sniped.author.name}")
-        del(snipes[message.channel.id])
-        return snipes
+async def warn(message):
+    if message.mentions == []:
+        message.channel.send("Mention a user to warn!")
     else:
-        await message.channel.send("nothing to snipe!")
-        return snipes
+        user_id = discord.mentions[0].id
+        message.channel.send(f"Warned <@{user_id}> for `{' '.join(message.content[2:])}`")

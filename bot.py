@@ -54,7 +54,6 @@ commands = [
 
     "avy",
     "ping",
-    "snipe",
 
 ]
 
@@ -62,7 +61,8 @@ admincommands = [
     "allteachers",
     "addteacher",
     "removeteacher",
-    "eval"
+    "eval",
+    "warn",
 ]
 
 snipes = {}
@@ -102,10 +102,7 @@ async def on_message(message):
 
     for command in commands:
         if header.lower() == f"{summon}{command}":
-            if header.lower() == f"{summon}snipe":
-                snipes = await eval(f"evaluate")(message, snipes)
-            else:
-                await eval(f"{command}")(message)
+            await eval(f"{command}")(message)
 
     if message.author.id != 241288855368499200:
         pass
