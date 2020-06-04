@@ -44,4 +44,4 @@ async def warn(message):
         user_id = message.mentions[0].id
         reason = message.content.split(" ")
         reason = ' '.join(reason[2:])
-        await message.channel.send(f"Warned <@{user_id}> for `{' '.join(message.content[2:])}`")
+        await message.channel.send(f"Warned <@{user_id}> for `{reason}`")
