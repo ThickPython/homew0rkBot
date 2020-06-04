@@ -41,5 +41,5 @@ async def warn(message):
     if message.mentions == []:
         message.channel.send("Mention a user to warn!")
     else:
-        user_id = discord.mentions[0].id
+        user_id = message.mentions[0].id
         message.channel.send(f"Warned <@{user_id}> for `{' '.join(message.content[2:])}`")
