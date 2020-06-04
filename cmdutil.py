@@ -42,4 +42,4 @@ async def warn(message):
         message.channel.send("Mention a user to warn!")
     else:
         user_id = message.mentions[0].id
-        message.channel.send(f"Warned <@{user_id}> for `{' '.join(message.content[2:])}`")
+        await message.channel.send(f"Warned <@{user_id}> for `{' '.join(message.content[2:])}`")
